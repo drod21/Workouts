@@ -1,5 +1,5 @@
 %%raw(`import './App.css';`)
-%%raw(`import {make as About} from './About.bs';`)
+%%raw(`import {make as About} from './Pages/About.bs';`)
 
 @module("./logo.svg") external logo: string = "default"
 
