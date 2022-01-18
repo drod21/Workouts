@@ -1,21 +1,25 @@
 %%raw(`import './App.css';`)
+%%raw(`import {make as About} from './About.bs';`)
 
 @module("./logo.svg") external logo: string = "default"
 
 @react.component
 let make = () => {
+  let url = RescriptReactRouter.useUrl()
 
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        {React.string("Edit ")}
-        <code> {React.string("src/App.js")} </code>
-        {React.string(" and save to reload.")}
-      </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        {React.string("Learn React")}
-      </a>
-    </header>
-  </div>
+  switch url.path {
+    | list{"about"} => <About />
+    | list{} =>
+      <div>
+        <h1>{React.string("Hello, world!")}</h1>
+        <p>{React.string("This is a simple example of a React component.")}</p>
+        <p>
+          {React.string("For more info, see ")}
+          <a href="https://reactjs.org" target="_blank">{React.string("https://reactjs.org")}</a>
+        </p>
+      </div>
+    | _ => <div>{React.string("404")}</div>
+  }
+
+
 }
