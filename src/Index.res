@@ -1,12 +1,19 @@
-open ReactDomExperimental
+%%raw(`
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import './Index.css';
+  import {make as App} from './App.bs';
+  import reportWebVitals from './reportWebVitals';
 
-%%raw(`import './Index.css';`)
-
-switch createRootWithId("root") {
-| Some(root) => root->render(
+  ReactDOM.render(
     <React.StrictMode>
       <App />
-    </React.StrictMode>
-  )
-| None => ()
-}
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+
+  // If you want to start measuring performance in your app, pass a function
+  // to log results (for example: reportWebVitals(console.log))
+  // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+  reportWebVitals();
+  `)

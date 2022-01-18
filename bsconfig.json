@@ -19,12 +19,10 @@
   ],
   "suffix": ".bs.js",
   "namespace": true,
+  "gentypeconfig": {
+    "language": "typescript"
+  },
   "bs-dependencies": [
-    "reason-react"
-  ],
-  "bs-dev-dependencies": [
-    "@glennsl/bs-jest",
-    "bs-react-testing-library"
-  ],
-  "refmt": 3
+    "@rescript/react"
+  ]
 }
