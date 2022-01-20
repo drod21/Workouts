@@ -4,13 +4,10 @@
     "react-jsx": 3
   },
   "sources": {
-    "dir" : "src",
-    "subdirs" : true
+    "dir": "src",
+    "subdirs": [{ "dir": "Pages", "subdirs": [{ "dir": "About" }, { "dir": "Exercises" }] }, { "dir": "api" }]
   },
-  "bsc-flags": [
-    "-bs-super-errors",
-    "-bs-no-version-header"
-  ],
+  "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
   "package-specs": [
     {
       "module": "es6",
@@ -22,7 +19,6 @@
   "gentypeconfig": {
     "language": "typescript"
   },
-  "bs-dependencies": [
-    "@rescript/react"
-  ]
+  "refmt": 3,
+  "bs-dependencies": ["@rescript/react", "bs-webapi", "rescript-request", "rescript-future"]
 }
