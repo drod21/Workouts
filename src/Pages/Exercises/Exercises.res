@@ -71,6 +71,10 @@ type action =
 type state = {
 	exercises: array<Exercise.exercise>
 }
+type useStateState =
+	| LoadingExercises
+	| ErrorFetchingExcercises
+	| LoadedExercises(array<Exercise.exercise>)
 
 let reducer = (state, action) =>
 	switch action {
@@ -83,29 +87,39 @@ let initialState = { exercises: [] }
 
 @react.component
 let make = () => {
-	let (state, dispatch) = React.useReducer(reducer, initialState)
+	let (state, setState) = React.useState(() => LoadingExercises)
+	// let (state, dispatch) = React.useReducer(reducer, initialState)
 
-	React.useEffect1(() => {
+	React.useEffect0(() => {
 		let baseUrl: string = "https://wger.de/api/v2"
 		let exerciseEndpoint: string = baseUrl ++ "/exercise"
 		Exercise.reqApi(~url=exerciseEndpoint, ~responseType=(JsonAsAny: Request.responseType<Exercise.responseFromApi>))
 		-> Future.get((x) => {
 			switch x {
-			| Ok(results) => dispatch(AddExercises(results))
-			| _ => dispatch(AddExercises([]))
+			| Ok(results) => setState(_ => LoadedExercises(results))
+			| _ => setState(_ => ErrorFetchingExcercises)
 			}
 		})
 		None
-	}, [dispatch])
+	})
 
-	<ol>
-		{React.array(Belt.Array.map(state.exercises, exercise => {
+	let displayState = switch state {
+		| LoadingExercises =>
+			<li>{React.string("Loading...")}</li>
+		| ErrorFetchingExcercises =>
+			<li>{React.string("Error fetching exercises")}</li>
+		| LoadedExercises(exercises) =>
+		<ol>
+			{React.array(Belt.Array.map(exercises, exercise => {
 			<li>
 				<p>{React.string(exercise.name)}</p>
 				<p dangerouslySetInnerHTML={{ "__html": exercise.description }} />
 			</li>
 		}))}
-	</ol>
+		</ol>
+		}
+
+	{displayState}
 }
 
 
