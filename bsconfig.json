@@ -5,7 +5,7 @@
   },
   "sources": {
     "dir": "src",
-    "subdirs": [{ "dir": "Pages", "subdirs": [{ "dir": "About" }, { "dir": "Exercises" }] }, { "dir": "api" }]
+    "subdirs": [{ "dir": "Pages", "subdirs": [{ "dir": "About" }, { "dir": "Exercises" }] }]
   },
   "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
   "package-specs": [
